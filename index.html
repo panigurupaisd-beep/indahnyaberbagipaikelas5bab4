@@ -1,0 +1,1992 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Hidup Lapang dengan Berbagi - Media Pembelajaran Interaktif</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/fredoka@5.0.0/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/nunito@5.0.0/index.css">
+<style>
+:root{
+  --primary:#2D8B5E;--primary-dark:#1E5B3E;--primary-light:#4CAF7D;
+  --secondary:#F4B860;--secondary-dark:#D89B3E;
+  --accent:#E8743B;--accent-light:#FF9558;
+  --bg:#FDF6E3;--bg-alt:#F5E6C8;
+  --dark:#3E2723;--dark-soft:#5D4037;
+  --success:#7BC47F;--error:#E57373;--info:#64B5F6;
+  --white:#FFFFFF;--shadow:0 4px 12px rgba(62,39,35,.15);
+  --shadow-lg:0 8px 24px rgba(62,39,35,.2);
+  --radius:16px;--radius-sm:10px;--radius-lg:24px;
+  --transition:all .3s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{overflow-x:hidden}
+body{
+  font-family:'Nunito',sans-serif;background:var(--bg);color:var(--dark);
+  min-height:100vh;line-height:1.6;font-size:18px;
+  background-image:
+    radial-gradient(circle at 20% 20%,rgba(244,184,96,.15) 0%,transparent 50%),
+    radial-gradient(circle at 80% 80%,rgba(45,139,94,.1) 0%,transparent 50%);
+}
+h1,h2,h3,h4{font-family:'Fredoka',sans-serif;font-weight:600;line-height:1.3}
+
+/* COVER */
+#cover{
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#2D8B5E 0%,#4CAF7D 50%,#F4B860 100%);
+  position:relative;overflow:hidden;min-height:100vh;padding:20px;
+}
+#cover.hidden{display:none}
+#cover::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle at 10% 20%,rgba(255,255,255,.1) 0%,transparent 30%),
+    radial-gradient(circle at 90% 80%,rgba(255,255,255,.1) 0%,transparent 30%);
+}
+.cover-content{
+  position:relative;z-index:2;text-align:center;max-width:900px;padding:30px;
+}
+.cover-badge{
+  display:inline-block;background:var(--white);color:var(--primary);
+  padding:8px 20px;border-radius:50px;font-weight:700;font-size:14px;
+  margin-bottom:20px;box-shadow:var(--shadow);
+}
+.cover-title{
+  font-size:clamp(32px,6vw,64px);color:var(--white);
+  text-shadow:3px 3px 0 var(--primary-dark);margin-bottom:10px;
+  font-family:'Fredoka',sans-serif;
+}
+.cover-subtitle{
+  font-size:clamp(18px,3vw,28px);color:var(--white);margin-bottom:30px;
+  font-weight:600;
+}
+.cover-illustration{
+  width:clamp(250px,60vw,450px);height:auto;margin:20px auto;
+  animation:float 3s ease-in-out infinite;
+}
+.cover-identity{
+  background:rgba(255,255,255,.95);border-radius:var(--radius);
+  padding:20px;margin:20px auto;max-width:500px;box-shadow:var(--shadow-lg);
+}
+.cover-identity p{margin:5px 0;font-size:16px;color:var(--dark)}
+.cover-identity strong{color:var(--primary);font-size:18px}
+.btn-mulai{
+  display:inline-block;background:var(--accent);color:var(--white);
+  padding:20px 60px;font-size:clamp(22px,4vw,32px);font-weight:700;
+  border:none;border-radius:50px;cursor:pointer;margin-top:20px;
+  box-shadow:0 6px 0 var(--accent-light),var(--shadow-lg);
+  font-family:'Fredoka',sans-serif;letter-spacing:2px;
+  transition:var(--transition);animation:pulse 2s infinite;
+}
+.btn-mulai:hover{transform:translateY(-3px);box-shadow:0 9px 0 var(--accent-light),var(--shadow-lg)}
+.btn-mulai:active{transform:translateY(3px);box-shadow:0 3px 0 var(--accent-light)}
+
+.deco-star{position:absolute;color:var(--secondary);animation:sparkle 2s infinite}
+.deco-star:nth-child(1){top:10%;left:5%;font-size:30px;animation-delay:0s}
+.deco-star:nth-child(2){top:20%;right:10%;font-size:24px;animation-delay:.5s}
+.deco-star:nth-child(3){bottom:15%;left:15%;font-size:36px;animation-delay:1s}
+.deco-star:nth-child(4){bottom:25%;right:8%;font-size:28px;animation-delay:1.5s}
+
+/* APP */
+#app{display:none;min-height:100vh}
+#app.visible{display:block;animation:fadeIn .5s ease}
+
+/* NAVIGATION */
+.navbar{
+  position:sticky;top:0;z-index:100;background:var(--white);
+  box-shadow:var(--shadow);padding:10px 20px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+.nav-brand{font-family:'Fredoka',sans-serif;color:var(--primary);font-size:20px;font-weight:700}
+.nav-menu{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.nav-btn{
+  background:var(--bg-alt);color:var(--dark);border:none;padding:8px 14px;
+  border-radius:var(--radius-sm);cursor:pointer;font-weight:600;font-size:14px;
+  transition:var(--transition);min-width:44px;min-height:44px;
+  display:flex;align-items:center;gap:5px;font-family:'Nunito',sans-serif);
+}
+.nav-btn:hover,.nav-btn.active{background:var(--primary);color:var(--white);transform:translateY(-2px)}
+.nav-btn:active{transform:translateY(0)}
+
+/* PAGE SECTION */
+.page-section{display:none;padding:20px;animation:fadeIn .5s ease}
+.page-section.active{display:block}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes sparkle{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.2)}}
+@keyframes slideIn{from{transform:translateX(-100%);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* COMMON */
+.container{max-width:1200px;margin:0 auto;padding:20px}
+.page-header{
+  text-align:center;margin-bottom:30px;padding:20px;
+  background:linear-gradient(135deg,var(--primary),var(--primary-light));
+  color:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow);
+}
+.page-header h2{font-size:clamp(24px,4vw,36px);margin-bottom:10px}
+.page-header p{font-size:clamp(14px,2vw,18px);opacity:.95}
+
+.card{
+  background:var(--white);border-radius:var(--radius);padding:25px;
+  box-shadow:var(--shadow);margin-bottom:20px;transition:var(--transition);
+}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+
+.mascot-container{
+  display:flex;align-items:flex-start;gap:15px;margin:20px 0;
+  background:var(--bg-alt);padding:20px;border-radius:var(--radius);
+  border-left:5px solid var(--secondary);
+}
+.mascot-svg{flex-shrink:0;width:80px;height:80px}
+.mascot-text{flex:1;font-size:17px}
+.mascot-text strong{color:var(--primary);font-family:'Fredoka',sans-serif}
+
+/* MENU UTAMA */
+.menu-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;margin-top:20px;
+}
+.menu-card{
+  background:var(--white);border-radius:var(--radius);padding:25px 20px;
+  text-align:center;cursor:pointer;transition:var(--transition);
+  box-shadow:var(--shadow);border:3px solid transparent;
+}
+.menu-card:hover{transform:translateY(-8px) scale(1.02);border-color:var(--primary);box-shadow:var(--shadow-lg)}
+.menu-icon{font-size:48px;margin-bottom:10px;display:block}
+.menu-card h3{color:var(--primary);font-size:20px;margin-bottom:5px}
+.menu-card p{font-size:14px;color:var(--dark-soft)}
+
+/* MATERI */
+.materi-tabs{
+  display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:20px;
+}
+.tab-btn{
+  background:var(--bg-alt);color:var(--dark);border:none;padding:12px 20px;
+  border-radius:var(--radius-sm);cursor:pointer;font-weight:700;font-size:16px;
+  transition:var(--transition);min-height:48px;font-family:'Nunito',sans-serif);
+}
+.tab-btn.active{background:var(--primary);color:var(--white);transform:scale(1.05)}
+.materi-content{display:none;animation:fadeIn .4s}
+.materi-content.active{display:block}
+
+.info-box{
+  background:linear-gradient(135deg,#E8F5E9,#F1F8E9);
+  border-left:5px solid var(--primary);padding:20px;border-radius:var(--radius);
+  margin:15px 0;
+}
+.info-box h4{color:var(--primary);margin-bottom:10px;font-size:20px}
+.info-box ul{padding-left:20px;margin-top:10px}
+.info-box li{margin:8px 0}
+
+.quran-box{
+  background:linear-gradient(135deg,#FFF8E1,#FFECB3);
+  border:2px solid var(--secondary);padding:20px;border-radius:var(--radius);
+  margin:15px 0;text-align:center;
+}
+.quran-arab{font-size:24px;color:var(--primary-dark);margin-bottom:10px;direction:rtl;font-family:serif}
+.quran-translation{font-style:italic;color:var(--dark-soft);font-size:16px}
+.quran-source{font-weight:700;color:var(--accent);margin-top:10px;font-size:14px}
+
+.mustahik-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:12px;margin:15px 0;
+}
+.mustahik-item{
+  background:var(--white);border:2px solid var(--primary-light);
+  padding:15px;border-radius:var(--radius-sm);text-align:center;
+  transition:var(--transition);
+}
+.mustahik-item:hover{background:var(--primary-light);color:var(--white);transform:scale(1.05)}
+.mustahik-item .icon{font-size:32px;margin-bottom:5px}
+.mustahik-item h5{color:var(--primary);font-size:16px;margin-bottom:5px}
+.mustahik-item:hover h5{color:var(--white)}
+.mustahik-item p{font-size:13px}
+
+.hikmah-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px;margin:20px 0}
+.hikmah-item{
+  background:linear-gradient(135deg,var(--secondary),var(--accent-light));
+  color:var(--white);padding:20px;border-radius:var(--radius);
+  box-shadow:var(--shadow);transition:var(--transition);
+}
+.hikmah-item:hover{transform:translateY(-5px) rotate(-1deg)}
+.hikmah-item .num{
+  display:inline-block;background:var(--white);color:var(--accent);
+  width:35px;height:35px;border-radius:50%;text-align:center;line-height:35px;
+  font-weight:700;margin-bottom:10px;
+}
+.hikmah-item h4{margin-bottom:8px}
+
+/* AKTIVITAS */
+.activity-container{
+  background:var(--white);border-radius:var(--radius);padding:25px;
+  box-shadow:var(--shadow);margin-bottom:20px;
+}
+.activity-instruction{
+  background:var(--bg-alt);padding:15px;border-radius:var(--radius-sm);
+  margin-bottom:20px;text-align:center;font-size:17px;font-weight:600;
+  color:var(--primary-dark);
+}
+
+/* Matching Game */
+.matching-game{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:20px 0}
+.match-column{display:flex;flex-direction:column;gap:12px}
+.match-item{
+  background:var(--white);border:3px solid var(--primary-light);
+  padding:15px;border-radius:var(--radius-sm);cursor:pointer;
+  transition:var(--transition);text-align:center;font-weight:600;
+  min-height:60px;display:flex;align-items:center;justify-content:center;
+}
+.match-item:hover{border-color:var(--primary);transform:scale(1.02)}
+.match-item.selected{background:var(--secondary);border-color:var(--accent);color:var(--white)}
+.match-item.matched{background:var(--success);border-color:var(--success);color:var(--white);cursor:default}
+.match-item.wrong{animation:shake .5s}
+
+/* Drag Drop */
+.drag-area{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:20px 0}
+.drag-items,.drop-zones{display:flex;flex-direction:column;gap:10px}
+.drag-item{
+  background:var(--secondary);color:var(--white);padding:12px 15px;
+  border-radius:var(--radius-sm);cursor:grab;font-weight:600;
+  transition:var(--transition);user-select:none;
+}
+.drag-item:active{cursor:grabbing;transform:scale(1.05)}
+.drag-item.dragging{opacity:.5}
+.drop-zone{
+  background:var(--bg-alt);border:3px dashed var(--primary-light);
+  padding:15px;border-radius:var(--radius-sm);min-height:70px;
+  transition:var(--transition);
+}
+.drop-zone.over{background:var(--primary-light);border-color:var(--primary)}
+.drop-zone.filled{background:var(--success);border-style:solid;color:var(--white)}
+.drop-zone-label{font-weight:700;color:var(--primary);margin-bottom:5px}
+
+/* GAME MAZE */
+.game-wrapper{
+  background:linear-gradient(135deg,#1a1a2e,#16213e);
+  border-radius:var(--radius);padding:20px;color:var(--white);
+  box-shadow:var(--shadow-lg);
+}
+.game-header{
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:10px;margin-bottom:15px;
+}
+.game-stat{
+  background:rgba(255,255,255,.1);padding:10px 20px;border-radius:var(--radius-sm);
+  font-weight:700;font-size:16px;
+}
+.game-stat span{color:var(--secondary);font-size:20px}
+#mazeCanvas{
+  display:block;margin:0 auto;border:4px solid var(--secondary);
+  border-radius:var(--radius-sm);background:#0f3460;
+  max-width:100%;touch-action:none;
+  image-rendering:pixelated;image-rendering:crisp-edges;
+}
+.game-controls{
+  display:grid;grid-template-columns:repeat(3,60px);
+  grid-template-rows:repeat(3,60px);gap:5px;
+  justify-content:center;margin:20px auto;
+}
+.ctrl-btn{
+  background:var(--primary);color:var(--white);border:none;
+  border-radius:var(--radius-sm);font-size:24px;font-weight:700;
+  cursor:pointer;transition:var(--transition);
+  min-width:60px;min-height:60px;
+}
+.ctrl-btn:hover{background:var(--primary-light)}
+.ctrl-btn:active{transform:scale(.95)}
+.ctrl-btn.empty{visibility:hidden}
+.game-info{text-align:center;margin:15px 0;font-size:16px}
+.game-info strong{color:var(--secondary)}
+
+/* LATIHAN & KUIS */
+.question-card{
+  background:var(--white);border-radius:var(--radius);padding:25px;
+  box-shadow:var(--shadow);margin-bottom:20px;
+}
+.question-num{
+  display:inline-block;background:var(--primary);color:var(--white);
+  padding:5px 15px;border-radius:50px;font-weight:700;margin-bottom:15px;
+}
+.question-text{font-size:19px;margin-bottom:20px;font-weight:600}
+.options{display:flex;flex-direction:column;gap:10px}
+.option{
+  background:var(--bg-alt);border:3px solid transparent;
+  padding:15px 20px;border-radius:var(--radius-sm);cursor:pointer;
+  transition:var(--transition);font-size:17px;font-weight:500;
+  text-align:left;min-height:50px;font-family:'Nunito',sans-serif);
+}
+.option:hover{border-color:var(--primary);background:var(--white)}
+.option.selected{border-color:var(--primary);background:var(--primary-light);color:var(--white)}
+.option.correct{border-color:var(--success);background:var(--success);color:var(--white);animation:bounce .5s}
+.option.wrong{border-color:var(--error);background:var(--error);color:var(--white);animation:shake .5s}
+.feedback{
+  margin-top:15px;padding:15px;border-radius:var(--radius-sm);
+  font-weight:600;display:none;
+}
+.feedback.show{display:block;animation:fadeIn .4s}
+.feedback.correct{background:#E8F5E9;color:var(--primary-dark);border-left:5px solid var(--success)}
+.feedback.wrong{background:#FFEBEE;color:#C62828;border-left:5px solid var(--error)}
+
+.progress-container{
+  background:var(--bg-alt);height:20px;border-radius:50px;overflow:hidden;
+  margin:15px 0;box-shadow:inset 0 2px 4px rgba(0,0,0,.1);
+}
+.progress-bar{
+  height:100%;background:linear-gradient(90deg,var(--primary),var(--secondary));
+  transition:width .5s ease;border-radius:50px;
+  display:flex;align-items:center;justify-content:flex-end;padding-right:10px;
+  color:var(--white);font-weight:700;font-size:12px;
+}
+
+/* HASIL */
+.result-card{
+  background:linear-gradient(135deg,var(--primary),var(--primary-light));
+  color:var(--white);border-radius:var(--radius-lg);padding:40px;
+  text-align:center;box-shadow:var(--shadow-lg);margin:20px 0;
+}
+.result-score{
+  font-size:clamp(48px,10vw,96px);font-family:'Fredoka',sans-serif;
+  margin:20px 0;text-shadow:3px 3px 0 rgba(0,0,0,.2);
+}
+.result-badge{
+  display:inline-block;background:var(--secondary);color:var(--dark);
+  padding:15px 30px;border-radius:50px;font-size:24px;font-weight:700;
+  margin:20px 0;animation:bounce 1s infinite;
+  font-family:'Fredoka',sans-serif;
+}
+.result-stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:15px;margin:20px 0;
+}
+.stat-item{
+  background:rgba(255,255,255,.2);padding:15px;border-radius:var(--radius-sm);
+}
+.stat-item .num{font-size:32px;font-weight:700;font-family:'Fredoka',sans-serif}
+.stat-item .label{font-size:14px;opacity:.9}
+
+/* REFLEKSI */
+.reflection-question{
+  background:var(--white);border-radius:var(--radius);padding:25px;
+  box-shadow:var(--shadow);margin-bottom:20px;
+}
+.reflection-question h4{color:var(--primary);margin-bottom:15px}
+.emoji-rating{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:15px 0}
+.emoji-btn{
+  font-size:40px;background:var(--bg-alt);border:3px solid transparent;
+  width:70px;height:70px;border-radius:50%;cursor:pointer;
+  transition:var(--transition);display:flex;align-items:center;justify-content:center;
+}
+.emoji-btn:hover{transform:scale(1.1);border-color:var(--secondary)}
+.emoji-btn.selected{background:var(--secondary);border-color:var(--accent);transform:scale(1.15)}
+.star-rating{display:flex;gap:5px;justify-content:center;margin:15px 0}
+.star-btn{
+  font-size:36px;background:none;border:none;cursor:pointer;
+  color:#ddd;transition:var(--transition);
+}
+.star-btn.active{color:var(--secondary);transform:scale(1.2)}
+.text-input{
+  width:100%;padding:15px;border:2px solid var(--bg-alt);
+  border-radius:var(--radius-sm);font-size:16px;font-family:'Nunito',sans-serif;
+  transition:var(--transition);resize:vertical;min-height:80px;
+}
+.text-input:focus{outline:none;border-color:var(--primary)}
+
+/* BUTTONS */
+.btn{
+  display:inline-block;padding:12px 25px;border:none;border-radius:var(--radius-sm);
+  font-weight:700;cursor:pointer;transition:var(--transition);font-size:16px;
+  min-height:48px;font-family:'Nunito',sans-serif);
+}
+.btn-primary{background:var(--primary);color:var(--white)}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-2px)}
+.btn-secondary{background:var(--secondary);color:var(--dark)}
+.btn-secondary:hover{background:var(--secondary-dark);transform:translateY(-2px)}
+.btn-accent{background:var(--accent);color:var(--white)}
+.btn-accent:hover{background:var(--accent-light);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
+.btn-outline:hover{background:var(--primary);color:var(--white)}
+.btn-group{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+
+/* MODAL */
+.modal{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);
+  z-index:1000;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex;animation:fadeIn .3s}
+.modal-content{
+  background:var(--white);border-radius:var(--radius-lg);padding:30px;
+  max-width:500px;width:100%;text-align:center;
+  animation:slideIn .4s;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  body{font-size:16px}
+  .navbar{padding:8px 10px}
+  .nav-brand{font-size:16px}
+  .nav-btn{padding:6px 10px;font-size:12px;min-width:40px;min-height:40px}
+  .container{padding:15px}
+  .matching-game,.drag-area{grid-template-columns:1fr}
+  .game-controls{grid-template-columns:repeat(3,55px);grid-template-rows:repeat(3,55px)}
+  .mascot-container{flex-direction:column;align-items:center;text-align:center}
+  .mascot-svg{width:60px;height:60px}
+}
+@media(min-width:1400px){
+  body{font-size:22px}
+  .cover-title{font-size:72px}
+}
+@media(pointer:coarse){
+  .btn,.nav-btn,.tab-btn,.option,.match-item,.ctrl-btn,.emoji-btn{
+    min-height:55px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== COVER ===== -->
+<div id="cover">
+  <span class="deco-star">✦</span>
+  <span class="deco-star">✧</span>
+  <span class="deco-star">★</span>
+  <span class="deco-star">✦</span>
+  <div class="cover-content">
+    <div class="cover-badge">📚 MEDIA PEMBELAJARAN INTERAKTIF</div>
+    <h1 class="cover-title">Hidup Lapang<br>dengan Berbagi</h1>
+    <p class="cover-subtitle">✨ Belajar Zakat, Infak, Sedekah & Hadiah ✨</p>
+    
+    <svg class="cover-illustration" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="300" fill="#87CEEB" opacity="0"/>
+      <circle cx="330" cy="60" r="30" fill="#F4B860"/>
+      <circle cx="330" cy="60" r="22" fill="#FFD54F"/>
+      <rect x="50" y="50" width="20" height="10" fill="#fff"/>
+      <rect x="40" y="60" width="40" height="10" fill="#fff"/>
+      <rect x="250" y="80" width="20" height="10" fill="#fff"/>
+      <rect x="240" y="90" width="40" height="10" fill="#fff"/>
+      <rect x="150" y="150" width="100" height="100" fill="#2D8B5E"/>
+      <polygon points="200,100 150,150 250,150" fill="#1E5B3E"/>
+      <rect x="195" y="70" width="10" height="40" fill="#F4B860"/>
+      <circle cx="200" cy="70" r="8" fill="#F4B860"/>
+      <rect x="190" y="200" width="20" height="50" fill="#8B4513"/>
+      <rect x="160" y="170" width="15" height="20" fill="#FFD54F"/>
+      <rect x="225" y="170" width="15" height="20" fill="#FFD54F"/>
+      <rect x="60" y="200" width="30" height="40" fill="#E8743B"/>
+      <rect x="65" y="180" width="20" height="20" fill="#FFDBB5"/>
+      <rect x="63" y="175" width="24" height="8" fill="#fff"/>
+      <rect x="65" y="172" width="20" height="5" fill="#fff"/>
+      <rect x="70" y="188" width="3" height="3" fill="#000"/>
+      <rect x="77" y="188" width="3" height="3" fill="#000"/>
+      <rect x="72" y="194" width="6" height="2" fill="#C62828"/>
+      <rect x="60" y="240" width="10" height="15" fill="#3E2723"/>
+      <rect x="80" y="240" width="10" height="15" fill="#3E2723"/>
+      <circle cx="95" cy="215" r="6" fill="#F4B860"/>
+      <text x="95" y="219" font-size="8" text-anchor="middle" fill="#8B4513" font-weight="bold">$</text>
+      <rect x="310" y="200" width="30" height="40" fill="#64B5F6"/>
+      <rect x="305" y="175" width="40" height="30" fill="#E91E63"/>
+      <rect x="315" y="185" width="20" height="20" fill="#FFDBB5"/>
+      <rect x="320" y="192" width="3" height="3" fill="#000"/>
+      <rect x="327" y="192" width="3" height="3" fill="#000"/>
+      <rect x="322" y="198" width="6" height="2" fill="#C62828"/>
+      <rect x="310" y="240" width="10" height="15" fill="#3E2723"/>
+      <rect x="330" y="240" width="10" height="15" fill="#3E2723"/>
+      <rect x="290" y="215" width="20" height="20" fill="#E57373"/>
+      <rect x="298" y="215" width="4" height="20" fill="#F4B860"/>
+      <rect x="290" y="223" width="20" height="4" fill="#F4B860"/>
+      <text x="120" y="150" font-size="20" fill="#E57373">❤</text>
+      <text x="280" y="140" font-size="16" fill="#E57373">❤</text>
+      <text x="180" y="60" font-size="14" fill="#E57373">❤</text>
+      <rect x="0" y="255" width="400" height="45" fill="#7BC47F"/>
+      <rect x="0" y="255" width="400" height="5" fill="#4CAF7D"/>
+      <circle cx="30" cy="270" r="4" fill="#F4B860"/>
+      <circle cx="370" cy="275" r="4" fill="#E57373"/>
+      <circle cx="120" cy="278" r="4" fill="#E91E63"/>
+    </svg>
+
+    <div class="cover-identity">
+      <p><strong>Pendidikan Agama Islam & Budi Pekerti</strong></p>
+      <p>Kelas V SD • Fase C • Bab 4</p>
+      <p style="margin-top:10px">Oleh: <strong>M. Ripani, S.Pd</strong></p>
+    </div>
+    
+    <button class="btn-mulai" id="btnMulai" type="button">🚀 MULAI</button>
+  </div>
+</div>
+
+<!-- ===== MAIN APP ===== -->
+<div id="app">
+  <nav class="navbar">
+    <div class="nav-brand">📖 Berbagi</div>
+    <div class="nav-menu">
+      <button class="nav-btn" data-page="beranda">🏠</button>
+      <button class="nav-btn" data-page="materi">📖</button>
+      <button class="nav-btn" data-page="aktivitas">🎯</button>
+      <button class="nav-btn" data-page="game">🎮</button>
+      <button class="nav-btn" data-page="latihan">📝</button>
+      <button class="nav-btn" data-page="kuis">❓</button>
+      <button class="nav-btn" data-page="hasil">🏆</button>
+      <button class="nav-btn" data-page="refleksi">💭</button>
+      <button class="nav-btn" data-page="petunjuk">📋</button>
+    </div>
+  </nav>
+
+  <!-- BERANDA -->
+  <section id="beranda" class="page-section active">
+    <div class="container">
+      <div class="page-header">
+        <h2>🌟 Selamat Datang! 🌟</h2>
+        <p>Ayo belajar tentang indahnya berbagi dengan Zakat, Infak, Sedekah, dan Hadiah</p>
+      </div>
+
+      <div class="mascot-container">
+        <svg class="mascot-svg" viewBox="0 0 100 100">
+          <rect x="35" y="20" width="30" height="30" fill="#FFDBB5"/>
+          <rect x="33" y="15" width="34" height="10" fill="#fff"/>
+          <rect x="35" y="12" width="30" height="6" fill="#fff"/>
+          <rect x="42" y="30" width="4" height="4" fill="#000"/>
+          <rect x="54" y="30" width="4" height="4" fill="#000"/>
+          <rect x="45" y="38" width="10" height="3" fill="#C62828"/>
+          <rect x="30" y="50" width="40" height="35" fill="#2D8B5E"/>
+          <rect x="30" y="85" width="15" height="10" fill="#3E2723"/>
+          <rect x="55" y="85" width="15" height="10" fill="#3E2723"/>
+        </svg>
+        <div class="mascot-text">
+          <strong>Assalamu'alaikum, teman-teman!</strong><br>
+          Aku <strong>Rafi</strong> 👋 Senang sekali bisa belajar bersama kalian hari ini. 
+          Tahukah kalian? Berbagi itu membuat hati kita <strong>lapang</strong> dan <strong>bahagia</strong>! 
+          Yuk kita mulai petualangan belajar tentang Zakat, Infak, Sedekah, dan Hadiah! 🌈
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="color:var(--primary);margin-bottom:15px">💡 Pertanyaan Pemantik</h3>
+        <p style="font-size:18px;margin-bottom:15px">Coba pikirkan dan diskusikan:</p>
+        <div style="background:var(--bg-alt);padding:15px;border-radius:var(--radius-sm);margin:10px 0">
+          <p>🤔 Pernahkah kamu berbagi makanan dengan teman?</p>
+        </div>
+        <div style="background:var(--bg-alt);padding:15px;border-radius:var(--radius-sm);margin:10px 0">
+          <p>🤔 Apa yang kamu rasakan saat memberi sesuatu kepada orang lain?</p>
+        </div>
+        <div style="background:var(--bg-alt);padding:15px;border-radius:var(--radius-sm);margin:10px 0">
+          <p>🤔 Siapa yang selalu memberi kepada kita setiap hari?</p>
+        </div>
+      </div>
+
+      <h3 style="color:var(--primary);margin:30px 0 20px;text-align:center">📚 Pilih Menu Pembelajaran</h3>
+      <div class="menu-grid">
+        <div class="menu-card" data-page="materi">
+          <span class="menu-icon">📖</span>
+          <h3>Materi</h3>
+          <p>Belajar Zakat, Infak, Sedekah & Hadiah</p>
+        </div>
+        <div class="menu-card" data-page="aktivitas">
+          <span class="menu-icon">🎯</span>
+          <h3>Aktivitas</h3>
+          <p>Latihan interaktif yang seru</p>
+        </div>
+        <div class="menu-card" data-page="game">
+          <span class="menu-icon">🎮</span>
+          <h3>Game</h3>
+          <p>Maze Chase - Petualangan Seru!</p>
+        </div>
+        <div class="menu-card" data-page="latihan">
+          <span class="menu-icon">📝</span>
+          <h3>Latihan</h3>
+          <p>Uji pemahamanmu</p>
+        </div>
+        <div class="menu-card" data-page="kuis">
+          <span class="menu-icon">❓</span>
+          <h3>Kuis Akhir</h3>
+          <p>10 soal menantang</p>
+        </div>
+        <div class="menu-card" data-page="refleksi">
+          <span class="menu-icon">💭</span>
+          <h3>Refleksi</h3>
+          <p>Renungkan pembelajaranmu</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MATERI -->
+  <section id="materi" class="page-section">
+    <div class="container">
+      <div class="page-header">
+        <h2>📖 Materi Pembelajaran</h2>
+        <p>Pelajari makna Zakat, Infak, Sedekah, dan Hadiah</p>
+      </div>
+
+      <div class="materi-tabs">
+        <button class="tab-btn active" data-materi="zakat">🕌 Zakat</button>
+        <button class="tab-btn" data-materi="infak">💰 Infak</button>
+        <button class="tab-btn" data-materi="sedekah">🤲 Sedekah</button>
+        <button class="tab-btn" data-materi="hadiah">🎁 Hadiah</button>
+        <button class="tab-btn" data-materi="hikmah">✨ Hikmah</button>
+      </div>
+
+      <div id="materi-zakat" class="materi-content active">
+        <div class="card">
+          <h3 style="color:var(--primary)">🕌 A. Zakat</h3>
+          <div class="mascot-container">
+            <svg class="mascot-svg" viewBox="0 0 100 100">
+              <rect x="35" y="20" width="30" height="30" fill="#FFDBB5"/>
+              <rect x="33" y="15" width="34" height="10" fill="#fff"/>
+              <rect x="35" y="12" width="30" height="6" fill="#fff"/>
+              <rect x="42" y="30" width="4" height="4" fill="#000"/>
+              <rect x="54" y="30" width="4" height="4" fill="#000"/>
+              <rect x="45" y="38" width="10" height="3" fill="#C62828"/>
+              <rect x="30" y="50" width="40" height="35" fill="#2D8B5E"/>
+            </svg>
+            <div class="mascot-text">
+              <strong>Zakat</strong> artinya <em>tumbuh, berkembang, suci, dan berkah</em>. 
+              Secara istilah, zakat adalah harta yang <strong>wajib</strong> dikeluarkan oleh seorang muslim menurut ketentuan syariat Islam. 🌟
+            </div>
+          </div>
+
+          <div class="info-box">
+            <h4>📌 Dua Macam Zakat</h4>
+            <ul>
+              <li><strong>Zakat Fitrah</strong> - Zakat jiwa, wajib dikeluarkan saat bulan Ramadan</li>
+              <li><strong>Zakat Mal</strong> - Zakat harta (perdagangan, pertanian, emas, dll)</li>
+            </ul>
+          </div>
+
+          <h4 style="color:var(--primary);margin:20px 0 10px">🌾 Zakat Fitrah</h4>
+          <div class="info-box">
+            <h4>Ketentuan Zakat Fitrah:</h4>
+            <ul>
+              <li>✅ Berupa <strong>bahan makanan pokok</strong> (beras 2,5 kg atau 3,5 liter)</li>
+              <li>✅ Waktu: <strong>Bulan Ramadan</strong> hingga sebelum salat Idul Fitri</li>
+              <li>✅ Penerima utama: <strong>Fakir dan Miskin</strong></li>
+              <li>✅ Hukumnya <strong>WAJIB</strong> bagi setiap muslim</li>
+            </ul>
+          </div>
+
+          <h4 style="color:var(--primary);margin:20px 0 10px">💼 Zakat Mal (Harta)</h4>
+          <p>Termasuk zakat mal: hasil perdagangan, pertanian, perkebunan, perikanan, peternakan, emas & perak, dan penghasilan (zakat profesi).</p>
+
+          <div class="quran-box">
+            <div class="quran-arab">خُذْ مِنْ أَمْوَالِهِمْ صَدَقَةً تُطَهِّرُهُمْ وَتُزَكِّيهِم بِهَا</div>
+            <div class="quran-translation">"Ambillah zakat dari harta mereka, guna membersihkan dan menyucikan mereka..."</div>
+            <div class="quran-source">📖 Q.S. at-Taubah/9: 103</div>
+          </div>
+
+          <h4 style="color:var(--primary);margin:20px 0 10px">👥 8 Golongan Penerima Zakat (Mustahik)</h4>
+          <div class="mustahik-grid">
+            <div class="mustahik-item"><div class="icon">🙏</div><h5>Fakir</h5><p>Tidak punya harta & pekerjaan</p></div>
+            <div class="mustahik-item"><div class="icon">💭</div><h5>Miskin</h5><p>Punya harta tapi tidak cukup</p></div>
+            <div class="mustahik-item"><div class="icon">📋</div><h5>Amil</h5><p>Pengelola zakat</p></div>
+            <div class="mustahik-item"><div class="icon">💚</div><h5>Mualaf</h5><p>Baru masuk Islam</p></div>
+            <div class="mustahik-item"><div class="icon">⛓️</div><h5>Riqab</h5><p>Memerdekakan hamba sahaya</p></div>
+            <div class="mustahik-item"><div class="icon">💳</div><h5>Gharim</h5><p>Orang banyak hutang</p></div>
+            <div class="mustahik-item"><div class="icon">⚔️</div><h5>Sabilillah</h5><p>Berjuang di jalan Allah</p></div>
+            <div class="mustahik-item"><div class="icon">🧳</div><h5>Ibnu Sabil</h5><p>Musafir kehabisan bekal</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="materi-infak" class="materi-content">
+        <div class="card">
+          <h3 style="color:var(--primary)">💰 B. Infak</h3>
+          <div class="mascot-container">
+            <svg class="mascot-svg" viewBox="0 0 100 100">
+              <rect x="35" y="20" width="30" height="30" fill="#FFDBB5"/>
+              <rect x="33" y="15" width="34" height="10" fill="#fff"/>
+              <rect x="35" y="12" width="30" height="6" fill="#fff"/>
+              <rect x="42" y="30" width="4" height="4" fill="#000"/>
+              <rect x="54" y="30" width="4" height="4" fill="#000"/>
+              <rect x="45" y="38" width="10" height="3" fill="#C62828"/>
+              <rect x="30" y="50" width="40" height="35" fill="#E8743B"/>
+            </svg>
+            <div class="mascot-text">
+              <strong>Infak</strong> berasal dari kata <em>nafaqa</em> (nafkah). Infak adalah sebagian harta yang dikeluarkan untuk <strong>kepentingan umum</strong> dan kemaslahatan. 💝
+            </div>
+          </div>
+
+          <div class="info-box">
+            <h4>📌 Ciri-ciri Infak:</h4>
+            <ul>
+              <li>✅ <strong>Tidak ada ketentuan nisab</strong> (batas minimal harta)</li>
+              <li>✅ <strong>Tidak ada ketentuan haul</strong> (batas waktu)</li>
+              <li>✅ Bisa diberikan <strong>kapan saja</strong></li>
+              <li>✅ Bisa kepada <strong>siapa saja</strong> yang membutuhkan</li>
+              <li>✅ Dianjurkan memberikan yang <strong>terbaik & dicintai</strong></li>
+            </ul>
+          </div>
+
+          <div class="quran-box">
+            <div class="quran-translation">"Kamu tidak akan memperoleh kebajikan, sebelum kamu menginfakkan sebagian harta yang kamu cintai..."</div>
+            <div class="quran-source">📖 Q.S. Ali-Imran/3: 92</div>
+          </div>
+
+          <div class="info-box" style="background:linear-gradient(135deg,#FFF3E0,#FFE0B2);border-left-color:var(--accent)">
+            <h4>🌟 Keutamaan Infak:</h4>
+            <p>Orang yang berinfak akan mendapat <strong>doa dari malaikat</strong>:</p>
+            <p style="margin-top:10px;font-style:italic">"Ya Allah, berilah ganti (hartanya) bagi orang yang berinfak"</p>
+            <p style="text-align:right;margin-top:5px;font-size:14px">— HR. Muslim</p>
+          </div>
+
+          <div class="info-box">
+            <h4>💡 Contoh Infak:</h4>
+            <ul>
+              <li>🏠 Membantu orang tua & saudara</li>
+              <li>👶 Menyantuni anak yatim</li>
+              <li>🕌 Sumbangan pembangunan masjid</li>
+              <li>🆘 Membantu korban bencana</li>
+              <li>📚 Donasi untuk pendidikan</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="materi-sedekah" class="materi-content">
+        <div class="card">
+          <h3 style="color:var(--primary)">🤲 C. Sedekah</h3>
+          <div class="mascot-container">
+            <svg class="mascot-svg" viewBox="0 0 100 100">
+              <rect x="35" y="20" width="30" height="30" fill="#FFDBB5"/>
+              <rect x="33" y="15" width="34" height="10" fill="#fff"/>
+              <rect x="35" y="12" width="30" height="6" fill="#fff"/>
+              <rect x="42" y="30" width="4" height="4" fill="#000"/>
+              <rect x="54" y="30" width="4" height="4" fill="#000"/>
+              <rect x="45" y="38" width="10" height="3" fill="#C62828"/>
+              <rect x="30" y="50" width="40" height="35" fill="#64B5F6"/>
+            </svg>
+            <div class="mascot-text">
+              <strong>Sedekah</strong> berasal dari kata <em>sadaqa</em> artinya "benar". Sedekah adalah pemberian <strong>tanpa batasan waktu & jumlah</strong>, semata mengharap ridha Allah. Bahkan <strong>senyum</strong> pun termasuk sedekah! 😊
+            </div>
+          </div>
+
+          <div class="info-box">
+            <h4>📌 Bentuk-bentuk Sedekah:</h4>
+            <ul>
+              <li>💵 Memberikan uang/makanan/pakaian</li>
+              <li>💪 Membantu dengan tenaga</li>
+              <li>🧠 Membantu dengan pikiran/ilmu</li>
+              <li>😊 <strong>Senyum tulus</strong> kepada orang lain</li>
+              <li>🤝 Menolong tetangga yang kesusahan</li>
+            </ul>
+          </div>
+
+          <div class="quran-box">
+            <div class="quran-translation">"...memberikan harta yang dicintainya kepada kerabat, anak yatim, orang-orang miskin..."</div>
+            <div class="quran-source">📖 Q.S. al-Baqarah/2: 177</div>
+          </div>
+
+          <div class="info-box" style="background:linear-gradient(135deg,#E3F2FD,#BBDEFB);border-left-color:var(--info)">
+            <h4>💙 Keistimewaan Sedekah:</h4>
+            <ul>
+              <li>🛡️ <strong>Menolak musibah</strong> - "Segeralah bersedekah, musibah tidak akan mendahului sedekah" (HR. Baihaqi)</li>
+              <li>🕊️ <strong>Merendaman permusuhan</strong> - mempererat hubungan</li>
+              <li>✨ <strong>Membersihkan harta</strong> dari yang kurang baik</li>
+              <li>💖 <strong>Menenteramkan hati</strong> pelakunya</li>
+            </ul>
+          </div>
+
+          <div class="info-box">
+            <h4>⚠️ Hukum Sedekah:</h4>
+            <ul>
+              <li><strong>Sunnah</strong> - hukum asal (sangat dianjurkan)</li>
+              <li><strong>Wajib</strong> - jika ada orang kelaparan & terancam jiwanya</li>
+              <li><strong>Haram</strong> - jika diketahui untuk berbuat maksiat</li>
+            </ul>
+          </div>
+
+          <div class="quran-box">
+            <div class="quran-translation">"...dan orang-orang yang dalam hartanya disiapkan bagian tertentu, bagi orang yang meminta dan yang tidak meminta..."</div>
+            <div class="quran-source">📖 Q.S. al-Ma'arij/70: 24-25</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="materi-hadiah" class="materi-content">
+        <div class="card">
+          <h3 style="color:var(--primary)">🎁 D. Hadiah</h3>
+          <div class="mascot-container">
+            <svg class="mascot-svg" viewBox="0 0 100 100">
+              <rect x="35" y="20" width="30" height="30" fill="#FFDBB5"/>
+              <rect x="33" y="15" width="34" height="10" fill="#fff"/>
+              <rect x="35" y="12" width="30" height="6" fill="#fff"/>
+              <rect x="42" y="30" width="4" height="4" fill="#000"/>
+              <rect x="54" y="30" width="4" height="4" fill="#000"/>
+              <rect x="45" y="38" width="10" height="3" fill="#C62828"/>
+              <rect x="30" y="50" width="40" height="35" fill="#E91E63"/>
+            </svg>
+            <div class="mascot-text">
+              <strong>Hadiah</strong> adalah pemberian untuk memberikan <strong>rasa hormat, memuliakan, atau penghargaan</strong> kepada seseorang. 🎀
+            </div>
+          </div>
+
+          <div class="info-box">
+            <h4>🎀 Tujuan Memberi Hadiah:</h4>
+            <ul>
+              <li>🏆 Memberikan <strong>penghargaan</strong> atas prestasi</li>
+              <li>💝 Menunjukkan <strong>rasa hormat</strong> & kasih sayang</li>
+              <li>🤗 <strong>Memuliakan</strong> seseorang</li>
+              <li>❤️ <strong>Mempererat cinta</strong> antar sesama</li>
+            </ul>
+          </div>
+
+          <div class="info-box" style="background:linear-gradient(135deg,#FCE4EC,#F8BBD0);border-left-color:#E91E63">
+            <h4>💬 Hadits Rasulullah:</h4>
+            <p style="font-style:italic">"Berjabat tanganlah maka akan hilang rasa dendam dan dengki, dan <strong>saling memberi hadiahlah maka kalian akan menjadi saling mencintai</strong>."</p>
+            <p style="text-align:right;margin-top:5px;font-size:14px">— HR. Malik</p>
+          </div>
+
+          <div class="info-box">
+            <h4>💡 Contoh Hadiah:</h4>
+            <ul>
+              <li>🎂 Kado ulang tahun untuk teman</li>
+              <li>🏅 Piala/piagam saat juara lomba</li>
+              <li>📚 Buku untuk adik yang rajin belajar</li>
+              <li>💌 Ucapan indah untuk orang tua</li>
+              <li>🌸 Bunga untuk guru tercinta</li>
+            </ul>
+          </div>
+
+          <div class="info-box" style="background:linear-gradient(135deg,#FFEBEE,#FFCDD2);border-left-color:var(--error)">
+            <h4>⚠️ Hadiah yang Dilarang:</h4>
+            <ul>
+              <li>❌ Memberi hadiah untuk <strong>memperoleh jabatan/kedudukan</strong></li>
+              <li>❌ Hadiah untuk <strong>menyuap</strong> pejabat</li>
+              <li>❌ Hadiah dengan <strong>niat tidak jujur</strong></li>
+            </ul>
+          </div>
+
+          <div class="info-box">
+            <h4>✅ Hadiah yang Terbaik:</h4>
+            <p>Sebagai anak, hadiah terbaik untuk orang tua & guru adalah:</p>
+            <ul>
+              <li>🌟 <strong>Perilaku yang baik</strong>, sopan, dan santun</li>
+              <li>📖 <strong>Rajin belajar</strong> dan berprestasi</li>
+              <li>🤲 <strong>Menjadi anak yang bermanfaat</strong></li>
+              <li>💌 <strong>Ucapan kasih sayang</strong> yang tulus</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="materi-hikmah" class="materi-content">
+        <div class="card">
+          <h3 style="color:var(--primary)">✨ E. Hikmah Berbagi</h3>
+          <div class="mascot-container">
+            <svg class="mascot-svg" viewBox="0 0 100 100">
+              <rect x="35" y="20" width="30" height="30" fill="#FFDBB5"/>
+              <rect x="33" y="15" width="34" height="10" fill="#fff"/>
+              <rect x="35" y="12" width="30" height="6" fill="#fff"/>
+              <rect x="42" y="30" width="4" height="4" fill="#000"/>
+              <rect x="54" y="30" width="4" height="4" fill="#000"/>
+              <rect x="45" y="38" width="10" height="3" fill="#C62828"/>
+              <rect x="30" y="50" width="40" height="35" fill="#F4B860"/>
+            </svg>
+            <div class="mascot-text">
+              Setiap perintah Allah pasti ada <strong>hikmahnya</strong>! Allah menjanjikan kebaikan tak terhingga bagi yang selalu berbagi. 🌟
+            </div>
+          </div>
+
+          <div class="hikmah-list">
+            <div class="hikmah-item">
+              <div class="num">1</div>
+              <h4>📈 Melipatgandakan Rezeki</h4>
+              <p>Berbagi tidak mengurangi harta, Allah akan melipatgandakan hingga 10 kali lipat!</p>
+            </div>
+            <div class="hikmah-item">
+              <div class="num">2</div>
+              <h4>💔 Menghapus Sifat Kikir</h4>
+              <p>Dengan terbiasa berbagi, sifat pelit akan hilang dari hati kita.</p>
+            </div>
+            <div class="hikmah-item">
+              <div class="num">3</div>
+              <h4>✨ Membersihkan Harta</h4>
+              <p>Sedekah & infak membersihkan harta dari yang kurang baik menjadi suci.</p>
+            </div>
+            <div class="hikmah-item">
+              <div class="num">4</div>
+              <h4>🛡️ Menolak Musibah</h4>
+              <p>"Segeralah bersedekah, musibah tidak akan mendahului sedekah" (HR. Baihaqi)</p>
+            </div>
+            <div class="hikmah-item">
+              <div class="num">5</div>
+              <h4>🤝 Membantu Orang Lemah</h4>
+              <p>Infak & sedekah menolong orang yang lemah sehingga mereka menjadi kuat.</p>
+            </div>
+            <div class="hikmah-item">
+              <div class="num">6</div>
+              <h4>❤️ Mempererat Silaturahmi</h4>
+              <p>Berbagi mempererat hubungan antar sesama & menghilangkan permusuhan.</p>
+            </div>
+          </div>
+
+          <div class="quran-box">
+            <div class="quran-translation">"Barang siapa membawa amal yang baik, maka baginya (pahala) sepuluh kali lipat amalnya..."</div>
+            <div class="quran-source">📖 Q.S. al-An'am/6: 160</div>
+          </div>
+
+          <div class="info-box" style="background:linear-gradient(135deg,#FCE4EC,#F8BBD0);border-left-color:#E91E63">
+            <h4>💝 Kunci Utama: IKHLAS</h4>
+            <p>Semua berbagi harus dilakukan dengan <strong>ikhlas</strong>, semata-mata karena Allah:</p>
+            <ul>
+              <li>❌ Tidak ingin dipuji (ria')</li>
+              <li>❌ Tidak mengharap jabatan</li>
+              <li>❌ Tidak menyakiti perasaan penerima</li>
+              <li>✅ Semata mengharap ridha Allah</li>
+            </ul>
+          </div>
+
+          <div class="quran-box">
+            <div class="quran-translation">"Wahai orang-orang yang beriman! Janganlah kamu merusak sedekahmu dengan menyebut-nyebutnya dan menyakiti (perasaan penerima)."</div>
+            <div class="quran-source">📖 Q.S. al-Baqarah/2: 264</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AKTIVITAS -->
+  <section id="aktivitas" class="page-section">
+    <div class="container">
+      <div class="page-header">
+        <h2>🎯 Aktivitas Interaktif</h2>
+        <p>Yuk asah pemahamanmu dengan aktivitas seru!</p>
+      </div>
+
+      <div class="activity-container">
+        <h3 style="color:var(--primary);margin-bottom:10px">🔗 Aktivitas 1: Menjodohkan</h3>
+        <div class="activity-instruction">
+          📌 Pasangkan jenis berbagi dengan definisinya yang tepat!<br>
+          <small>Klik satu item di kiri, lalu klik pasangannya di kanan</small>
+        </div>
+        <div class="matching-game" id="matchingGame">
+          <div class="match-column" id="matchLeft"></div>
+          <div class="match-column" id="matchRight"></div>
+        </div>
+        <div id="matchResult" style="text-align:center;margin-top:15px;font-weight:700;font-size:18px"></div>
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="resetMatching()">🔄 Ulangi</button>
+        </div>
+      </div>
+
+      <div class="activity-container">
+        <h3 style="color:var(--primary);margin-bottom:10px">📦 Aktivitas 2: Klasifikasi Berbagi</h3>
+        <div class="activity-instruction">
+          📌 Seret (drag) atau klik setiap contoh, lalu klik kategori yang tepat!
+        </div>
+        <div class="drag-area">
+          <div>
+            <h4 style="margin-bottom:10px">📋 Contoh:</h4>
+            <div class="drag-items" id="dragItems"></div>
+          </div>
+          <div>
+            <h4 style="margin-bottom:10px">🎯 Kategori:</h4>
+            <div class="drop-zones" id="dropZones"></div>
+          </div>
+        </div>
+        <div id="dragResult" style="text-align:center;margin-top:15px;font-weight:700;font-size:18px"></div>
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="checkDragDrop()">✓ Periksa</button>
+          <button class="btn btn-secondary" onclick="resetDragDrop()">🔄 Ulangi</button>
+        </div>
+      </div>
+
+      <div class="activity-container">
+        <h3 style="color:var(--primary);margin-bottom:10px">🖼️ Aktivitas 3: Tebak Jenis Berbagi</h3>
+        <div class="activity-instruction">
+          📌 Baca deskripsi, lalu pilih jenis berbagi yang tepat!
+        </div>
+        <div id="tebakGame"></div>
+        <div id="tebakResult" style="text-align:center;margin-top:15px;font-weight:700;font-size:18px"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GAME MAZE -->
+  <section id="game" class="page-section">
+    <div class="container">
+      <div class="page-header">
+        <h2>🎮 Maze Chase: Petualangan Berbagi</h2>
+        <p>Bantu Rafi mengumpulkan koin & mencapai masjid!</p>
+      </div>
+
+      <div class="game-wrapper">
+        <div class="game-header">
+          <div class="game-stat">🏆 Skor: <span id="gameScore">0</span></div>
+          <div class="game-stat">💰 Koin: <span id="gameCoins">0</span>/<span id="totalCoins">0</span></div>
+          <div class="game-stat">⏱️ Waktu: <span id="gameTime">0</span>s</div>
+          <div class="game-stat">🎯 Level: <span id="gameLevel">1</span></div>
+        </div>
+
+        <div class="game-info">
+          <p>🎮 <strong>Cara Main:</strong> Gunakan tombol panah / tombol di bawah / swipe untuk menggerakkan Rafi</p>
+          <p>💰 Kumpulkan semua <strong>koin emas</strong> 🪙</p>
+          <p>🕌 Capai <strong>masjid</strong> sebagai tujuan akhir</p>
+          <p>⚠️ Hindari <strong>rintangan merah</strong> ❌</p>
+        </div>
+
+        <canvas id="mazeCanvas" width="500" height="500"></canvas>
+
+        <div class="game-controls">
+          <button class="ctrl-btn empty"></button>
+          <button class="ctrl-btn" onclick="movePlayer(0,-1)">▲</button>
+          <button class="ctrl-btn empty"></button>
+          <button class="ctrl-btn" onclick="movePlayer(-1,0)">◀</button>
+          <button class="ctrl-btn" onclick="resetGame()" style="background:var(--accent)">🔄</button>
+          <button class="ctrl-btn" onclick="movePlayer(1,0)">▶</button>
+          <button class="ctrl-btn empty"></button>
+          <button class="ctrl-btn" onclick="movePlayer(0,1)">▼</button>
+          <button class="ctrl-btn empty"></button>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="startGame()">▶️ Mulai Game</button>
+          <button class="btn btn-secondary" onclick="resetGame()">🔄 Reset</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LATIHAN -->
+  <section id="latihan" class="page-section">
+    <div class="container">
+      <div class="page-header">
+        <h2>📝 Latihan Pemahaman</h2>
+        <p>Uji pemahamanmu dengan soal-soal berikut!</p>
+      </div>
+      <div id="latihanContainer"></div>
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="checkLatihan()">✓ Periksa Jawaban</button>
+        <button class="btn btn-secondary" onclick="resetLatihan()">🔄 Ulangi</button>
+      </div>
+      <div id="latihanResult" style="text-align:center;margin-top:20px"></div>
+    </div>
+  </section>
+
+  <!-- KUIS -->
+  <section id="kuis" class="page-section">
+    <div class="container">
+      <div class="page-header">
+        <h2>❓ Kuis Akhir</h2>
+        <p>10 soal menantang untuk menguji pemahamanmu!</p>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar" id="quizProgress" style="width:0%">0%</div>
+      </div>
+      <div id="quizContainer"></div>
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="submitQuiz()">📊 Lihat Hasil</button>
+        <button class="btn btn-secondary" onclick="resetQuiz()">🔄 Ulangi Kuis</button>
+      </div>
+      <div id="quizResult" style="text-align:center;margin-top:20px"></div>
+    </div>
+  </section>
+
+  <!-- HASIL -->
+  <section id="hasil" class="page-section">
+    <div class="container">
+      <div class="page-header">
+        <h2>🏆 Hasil Belajarmu</h2>
+        <p>Lihat pencapaianmu!</p>
+      </div>
+      <div class="result-card">
+        <h3 style="font-size:24px">Skor Akhir</h3>
+        <div class="result-score" id="finalScore">0</div>
+        <div class="result-badge" id="finalBadge">🌟 Hebat!</div>
+        <div class="result-stats">
+          <div class="stat-item"><div class="num" id="statCorrect">0</div><div class="label">✅ Benar</div></div>
+          <div class="stat-item"><div class="num" id="statWrong">0</div><div class="label">❌ Salah</div></div>
+          <div class="stat-item"><div class="num" id="statTotal">0</div><div class="label">📝 Total Soal</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--primary);margin-bottom:15px">📚 Ringkasan Materi</h3>
+        <p>Kamu telah mempelajari:</p>
+        <ul style="margin:15px 0;padding-left:25px">
+          <li>🕌 <strong>Zakat</strong> - Wajib, ada ketentuan (fitrah & mal)</li>
+          <li>💰 <strong>Infak</strong> - Sukarela, untuk kemaslahatan umum</li>
+          <li>🤲 <strong>Sedekah</strong> - Lebih luas, bahkan senyum termasuk</li>
+          <li>🎁 <strong>Hadiah</strong> - Untuk penghargaan & rasa hormat</li>
+          <li>✨ <strong>Hikmah</strong> - Melipatgandakan rezeki, menolak musibah, dll</li>
+        </ul>
+      </div>
+      <div class="card" id="recommendationCard">
+        <h3 style="color:var(--primary);margin-bottom:15px">💡 Rekomendasi</h3>
+        <p id="recommendationText"></p>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="showPage('materi')">📖 Ulangi Materi</button>
+        <button class="btn btn-secondary" onclick="showPage('kuis')">❓ Ulangi Kuis</button>
+        <button class="btn btn-accent" onclick="showPage('beranda')">🏠 Menu Utama</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- REFLEKSI -->
+  <section id="refleksi" class="page-section">
+    <div class="container">
+      <div class="page-header">
+        <h2>💭 Refleksi Diri</h2>
+        <p>Renungkan pengalaman belajarmu!</p>
+      </div>
+
+      <div class="mascot-container">
+        <svg class="mascot-svg" viewBox="0 0 100 100">
+          <rect x="35" y="20" width="30" height="30" fill="#FFDBB5"/>
+          <rect x="33" y="15" width="34" height="10" fill="#fff"/>
+          <rect x="35" y="12" width="30" height="6" fill="#fff"/>
+          <rect x="42" y="30" width="4" height="4" fill="#000"/>
+          <rect x="54" y="30" width="4" height="4" fill="#000"/>
+          <rect x="45" y="38" width="10" height="3" fill="#C62828"/>
+          <rect x="30" y="50" width="40" height="35" fill="#9C27B0"/>
+        </svg>
+        <div class="mascot-text">
+          <strong>Hebat!</strong> Kamu sudah belajar banyak hari ini. Sekarang, yuk renungkan pengalamanmu! 🌟
+        </div>
+      </div>
+
+      <div class="reflection-question">
+        <h4>😊 Bagaimana perasaanmu setelah belajar materi ini?</h4>
+        <div class="emoji-rating" data-reflection="feeling">
+          <button class="emoji-btn" data-value="1">😢</button>
+          <button class="emoji-btn" data-value="2">😐</button>
+          <button class="emoji-btn" data-value="3">🙂</button>
+          <button class="emoji-btn" data-value="4">😊</button>
+          <button class="emoji-btn" data-value="5">🤩</button>
+        </div>
+      </div>
+
+      <div class="reflection-question">
+        <h4>⭐ Seberapa mudah kamu memahami materi ini?</h4>
+        <div class="star-rating" data-reflection="difficulty">
+          <button class="star-btn" data-val="1">★</button>
+          <button class="star-btn" data-val="2">★</button>
+          <button class="star-btn" data-val="3">★</button>
+          <button class="star-btn" data-val="4">★</button>
+          <button class="star-btn" data-val="5">★</button>
+        </div>
+      </div>
+
+      <div class="reflection-question">
+        <h4>💖 Apa yang paling kamu sukai dari pembelajaran ini?</h4>
+        <textarea class="text-input" id="reflectionLike" placeholder="Tuliskan jawabanmu di sini..."></textarea>
+      </div>
+
+      <div class="reflection-question">
+        <h4>🤔 Bagian mana yang masih sulit untuk kamu?</h4>
+        <textarea class="text-input" id="reflectionHard" placeholder="Tuliskan jawabanmu di sini..."></textarea>
+      </div>
+
+      <div class="reflection-question">
+        <h4>🌱 Apa yang akan kamu lakukan setelah belajar ini?</h4>
+        <textarea class="text-input" id="reflectionAction" placeholder="Tuliskan rencana kebaikanmu..."></textarea>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="submitReflection()">💾 Simpan Refleksi</button>
+      </div>
+      <div id="reflectionResult" style="text-align:center;margin-top:20px"></div>
+    </div>
+  </section>
+
+  <!-- PETUNJUK -->
+  <section id="petunjuk" class="page-section">
+    <div class="container">
+      <div class="page-header">
+        <h2>📋 Petunjuk Penggunaan</h2>
+        <p>Panduan menggunakan media pembelajaran ini</p>
+      </div>
+
+      <div class="card">
+        <h3 style="color:var(--primary);margin-bottom:15px">🎯 Tujuan Pembelajaran</h3>
+        <p>Setelah mengikuti pembelajaran ini, peserta didik mampu:</p>
+        <ol style="margin:15px 0;padding-left:25px">
+          <li>Meyakini makna zakat, infak, sedekah, dan hadiah</li>
+          <li>Menjelaskan makna zakat, infak, sedekah, dan hadiah</li>
+          <li>Membedakan makna zakat, infak, sedekah, dan hadiah</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h3 style="color:var(--primary);margin-bottom:15px">📚 Menu Pembelajaran</h3>
+        <ul style="padding-left:25px;line-height:2">
+          <li>🏠 <strong>Beranda</strong> - Halaman utama dengan pertanyaan pemantik</li>
+          <li>📖 <strong>Materi</strong> - Pelajari 5 sub-bab: Zakat, Infak, Sedekah, Hadiah, Hikmah</li>
+          <li>🎯 <strong>Aktivitas</strong> - Latihan interaktif (matching, drag-drop, tebak gambar)</li>
+          <li>🎮 <strong>Game</strong> - Maze Chase: kumpulkan koin & capai masjid</li>
+          <li>📝 <strong>Latihan</strong> - Soal latihan dengan feedback langsung</li>
+          <li>❓ <strong>Kuis</strong> - 10 soal evaluasi akhir</li>
+          <li>🏆 <strong>Hasil</strong> - Lihat skor & pencapaianmu</li>
+          <li>💭 <strong>Refleksi</strong> - Renungkan pengalaman belajarmu</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3 style="color:var(--primary);margin-bottom:15px">🎮 Cara Bermain Maze Chase</h3>
+        <ul style="padding-left:25px;line-height:2">
+          <li>🖥️ <strong>Desktop:</strong> Gunakan tombol panah ← ↑ → ↓ di keyboard</li>
+          <li>📱 <strong>Mobile/FID:</strong> Gunakan tombol kontrol di layar atau swipe</li>
+          <li>💰 Kumpulkan semua koin emas 🪙</li>
+          <li>🕌 Capai masjid sebagai tujuan akhir</li>
+          <li>⚠️ Hindari rintangan merah</li>
+          <li>🎯 Selesaikan secepat mungkin untuk skor tinggi!</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3 style="color:var(--primary);margin-bottom:15px">💡 Tips Belajar</h3>
+        <ul style="padding-left:25px;line-height:2">
+          <li>📖 Baca materi dengan teliti sebelum mengerjakan aktivitas</li>
+          <li>🎯 Ikuti urutan: Materi → Aktivitas → Game → Latihan → Kuis</li>
+          <li>🔄 Jangan takut mengulangi jika belum paham</li>
+          <li>💭 Isi refleksi dengan jujur untuk pengembangan diri</li>
+          <li>🤝 Diskusikan dengan teman atau guru jika ada yang sulit</li>
+        </ul>
+      </div>
+
+      <div class="card" style="background:linear-gradient(135deg,var(--primary),var(--primary-light));color:var(--white)">
+        <h3 style="margin-bottom:15px">👨‍🏫 Identitas Pembuat</h3>
+        <p style="font-size:18px"><strong>Media Pembelajaran Interaktif</strong></p>
+        <p>Mata Pelajaran: Pendidikan Agama Islam & Budi Pekerti</p>
+        <p>Kelas/Semester: V SD / Fase C</p>
+        <p>Bab 4: Hidup Lapang dengan Berbagi</p>
+        <p style="margin-top:10px">Dikembangkan oleh: <strong>M. Ripani, S.Pd</strong></p>
+        <p>Tahun: 2024</p>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="showPage('beranda')">🏠 Mulai Belajar</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <div id="modalIcon" style="font-size:64px;margin-bottom:15px">🎉</div>
+    <h3 id="modalTitle" style="color:var(--primary);margin-bottom:15px">Selamat!</h3>
+    <p id="modalText" style="margin-bottom:20px">Kamu berhasil!</p>
+    <button class="btn btn-primary" onclick="closeModal()">✓ OK</button>
+  </div>
+</div>
+
+<script>
+// ============ NAVIGATION ============
+function startApp(){
+  const cover = document.getElementById('cover');
+  const app = document.getElementById('app');
+  cover.classList.add('hidden');
+  app.classList.add('visible');
+  showPage('beranda');
+  window.scrollTo(0,0);
+}
+
+function showPage(id){
+  document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
+  const page=document.getElementById(id);
+  if(page){
+    page.classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  // Update nav buttons
+  document.querySelectorAll('.nav-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.page === id);
+  });
+  try{localStorage.setItem('lastPage',id)}catch(e){}
+}
+
+function showMateri(id,btn){
+  document.querySelectorAll('.materi-content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('materi-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ============ MODAL ============
+function showModal(icon,title,text){
+  document.getElementById('modalIcon').textContent=icon;
+  document.getElementById('modalTitle').textContent=title;
+  document.getElementById('modalText').textContent=text;
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+
+// ============ MATCHING GAME ============
+const matchData=[
+  {left:'Zakat Fitrah',right:'Bahan pokok 2,5 kg sebelum Idul Fitri'},
+  {left:'Infak',right:'Harta untuk kemaslahatan umum'},
+  {left:'Sedekah',right:'Pemberian tanpa batas, bahkan senyum'},
+  {left:'Hadiah',right:'Pemberian untuk penghargaan & hormat'},
+  {left:'Amil',right:'Pengelola dan pendistribusi zakat'},
+  {left:'Mualaf',right:'Orang yang baru masuk Islam'}
+];
+let matchSelected=null,matchCount=0;
+
+function initMatching(){
+  const left=document.getElementById('matchLeft');
+  const right=document.getElementById('matchRight');
+  left.innerHTML='';right.innerHTML='';
+  matchCount=0;matchSelected=null;
+  document.getElementById('matchResult').textContent='';
+  const shuffledR=[...matchData].sort(()=>Math.random()-0.5);
+  matchData.forEach((item,i)=>{
+    const l=document.createElement('div');
+    l.className='match-item';l.textContent=item.left;
+    l.dataset.pair=item.left;l.dataset.side='left';
+    l.onclick=()=>selectMatch(l);
+    left.appendChild(l);
+    const r=document.createElement('div');
+    r.className='match-item';r.textContent=shuffledR[i].right;
+    r.dataset.pair=shuffledR[i].left;r.dataset.side='right';
+    r.onclick=()=>selectMatch(r);
+    right.appendChild(r);
+  });
+}
+
+function selectMatch(el){
+  if(el.classList.contains('matched'))return;
+  if(!matchSelected){
+    matchSelected=el;el.classList.add('selected');
+  }else{
+    if(matchSelected===el){el.classList.remove('selected');matchSelected=null;return}
+    if(matchSelected.dataset.side===el.dataset.side){
+      matchSelected.classList.remove('selected');
+      matchSelected=el;el.classList.add('selected');
+    }else{
+      if(matchSelected.dataset.pair===el.dataset.pair){
+        matchSelected.classList.remove('selected');
+        matchSelected.classList.add('matched');
+        el.classList.add('matched');
+        matchCount++;
+        playSound('success');
+        if(matchCount===matchData.length){
+          document.getElementById('matchResult').innerHTML='<span style="color:var(--success)">🎉 Hebat! Semua pasangan benar!</span>';
+          showModal('🎉','Luar Biasa!','Kamu berhasil menjodohkan semua dengan benar!');
+        }
+      }else{
+        el.classList.add('wrong');matchSelected.classList.add('wrong');
+        playSound('error');
+        const prev=matchSelected;
+        setTimeout(()=>{el.classList.remove('wrong');prev.classList.remove('wrong');prev.classList.remove('selected')},600);
+      }
+      matchSelected=null;
+    }
+  }
+}
+function resetMatching(){initMatching()}
+
+// ============ DRAG DROP ============
+const dragData=[
+  {text:'Membayar 2,5 kg beras di Ramadan',cat:'Zakat'},
+  {text:'Sumbangan pembangunan masjid',cat:'Infak'},
+  {text:'Senyum tulus kepada teman',cat:'Sedekah'},
+  {text:'Piala juara lomba MHQ',cat:'Hadiah'},
+  {text:'Memberi uang ke kotak amal',cat:'Infak'},
+  {text:'Membantu nenek menyeberang jalan',cat:'Sedekah'},
+  {text:'Kado ulang tahun untuk adik',cat:'Hadiah'},
+  {text:'Zakat profesi dari gaji',cat:'Zakat'}
+];
+const categories=['Zakat','Infak','Sedekah','Hadiah'];
+
+function initDragDrop(){
+  const items=document.getElementById('dragItems');
+  const zones=document.getElementById('dropZones');
+  items.innerHTML='';zones.innerHTML='';
+  document.getElementById('dragResult').textContent='';
+  const shuffled=[...dragData].sort(()=>Math.random()-0.5);
+  shuffled.forEach((item,i)=>{
+    const d=document.createElement('div');
+    d.className='drag-item';d.textContent=item.text;
+    d.draggable=true;d.dataset.cat=item.cat;d.dataset.idx=i;
+    d.ondragstart=e=>{e.dataTransfer.setData('text/plain',i);d.classList.add('dragging')};
+    d.ondragend=()=>d.classList.remove('dragging');
+    d.onclick=()=>handleDragClick(d);
+    items.appendChild(d);
+  });
+  categories.forEach(cat=>{
+    const z=document.createElement('div');
+    z.className='drop-zone';z.dataset.cat=cat;
+    z.innerHTML=`<div class="drop-zone-label">${cat}</div><div class="drop-content"></div>`;
+    z.ondragover=e=>{e.preventDefault();z.classList.add('over')};
+    z.ondragleave=()=>z.classList.remove('over');
+    z.ondrop=e=>{
+      e.preventDefault();z.classList.remove('over');
+      const idx=e.dataTransfer.getData('text/plain');
+      const item=items.children[idx];
+      if(item){
+        z.querySelector('.drop-content').appendChild(item);
+        item.dataset.placed=cat;
+      }
+    };
+    zones.appendChild(z);
+  });
+}
+
+let selectedDragItem=null;
+function handleDragClick(item){
+  if(item.parentElement.classList.contains('drop-zone'))return;
+  if(selectedDragItem===item){item.style.outline='';selectedDragItem=null;return}
+  if(selectedDragItem)selectedDragItem.style.outline='';
+  selectedDragItem=item;
+  item.style.outline='3px solid var(--accent)';
+}
+
+document.addEventListener('click',e=>{
+  if(!selectedDragItem)return;
+  const zone=e.target.closest('.drop-zone');
+  if(zone){
+    zone.querySelector('.drop-content').appendChild(selectedDragItem);
+    selectedDragItem.dataset.placed=zone.dataset.cat;
+    selectedDragItem.style.outline='';
+    selectedDragItem=null;
+  }
+});
+
+function checkDragDrop(){
+  let correct=0,total=document.querySelectorAll('.drag-item').length;
+  document.querySelectorAll('.drag-item').forEach(item=>{
+    if(item.dataset.placed===item.dataset.cat){
+      correct++;item.style.background='var(--success)';
+    }else if(item.dataset.placed){
+      item.style.background='var(--error)';
+    }
+  });
+  const result=document.getElementById('dragResult');
+  if(correct===total){
+    result.innerHTML=`<span style="color:var(--success)">🎉 Sempurna! ${correct}/${total} benar!</span>`;
+    showModal('🏆','Luar Biasa!','Semua klasifikasi benar!');
+  }else{
+    result.innerHTML=`<span style="color:var(--accent)">${correct}/${total} benar. Coba lagi yang salah!</span>`;
+  }
+}
+function resetDragDrop(){initDragDrop()}
+
+// ============ TEBAK GAME ============
+const tebakData=[
+  {desc:'Pemberian bahan makanan pokok 2,5 kg yang wajib dikeluarkan sebelum Idul Fitri',answer:'Zakat',options:['Zakat','Infak','Sedekah','Hadiah']},
+  {desc:'Memberikan sebagian harta untuk pembangunan masjid tanpa ketentuan jumlah',answer:'Infak',options:['Zakat','Infak','Sedekah','Hadiah']},
+  {desc:'Senyum tulus kepada teman yang sedang bersedih',answer:'Sedekah',options:['Zakat','Infak','Sedekah','Hadiah']},
+  {desc:'Piala yang diberikan kepada juara 1 lomba hafalan Al-Quran',answer:'Hadiah',options:['Zakat','Infak','Sedekah','Hadiah']},
+  {desc:'Membantu korban bencana alam dengan sembako',answer:'Infak',options:['Zakat','Infak','Sedekah','Hadiah']}
+];
+let tebakIdx=0,tebakCorrect=0;
+
+function initTebak(){
+  tebakIdx=0;tebakCorrect=0;
+  document.getElementById('tebakResult').textContent='';
+  renderTebak();
+}
+function renderTebak(){
+  if(tebakIdx>=tebakData.length){
+    document.getElementById('tebakResult').innerHTML=`<span style="color:var(--success)">🎉 Selesai! Skor: ${tebakCorrect}/${tebakData.length}</span>`;
+    if(tebakCorrect===tebakData.length)showModal('🌟','Sempurna!','Kamu menjawab semua dengan benar!');
+    return;
+  }
+  const q=tebakData[tebakIdx];
+  const c=document.getElementById('tebakGame');
+  c.innerHTML=`
+    <div class="card">
+      <div class="question-num">Soal ${tebakIdx+1}/${tebakData.length}</div>
+      <div class="question-text">${q.desc}</div>
+      <div class="options">
+        ${q.options.map(o=>`<button class="option" onclick="answerTebak('${o}')">${o}</button>`).join('')}
+      </div>
+    </div>`;
+}
+function answerTebak(ans){
+  const q=tebakData[tebakIdx];
+  const btns=document.querySelectorAll('#tebakGame .option');
+  btns.forEach(b=>{
+    b.disabled=true;
+    if(b.textContent===q.answer)b.classList.add('correct');
+    else if(b.textContent===ans)b.classList.add('wrong');
+  });
+  if(ans===q.answer){tebakCorrect++;playSound('success')}else{playSound('error')}
+  setTimeout(()=>{tebakIdx++;renderTebak()},1200);
+}
+
+// ============ MAZE GAME ============
+const canvas=document.getElementById('mazeCanvas');
+const ctx=canvas.getContext('2d');
+const CELL=40;
+let COLS,ROWS;
+let maze=[],player={x:1,y:1},coins=[],goal={x:0,y:0};
+let gameScore=0,gameCoins=0,totalCoinsCount=0,gameTime=0,gameLevel=1;
+let gameTimer=null,gameRunning=false;
+let obstacles=[];
+
+function resizeCanvas(){
+  const w=Math.min(500,window.innerWidth-60);
+  canvas.style.width=w+'px';
+  canvas.style.height=w+'px';
+}
+
+function generateMaze(){
+  COLS=Math.floor(canvas.width/CELL);
+  ROWS=Math.floor(canvas.height/CELL);
+  maze=[];
+  for(let y=0;y<ROWS;y++){
+    maze[y]=[];
+    for(let x=0;x<COLS;x++){
+      maze[y][x]=(x===0||y===0||x===COLS-1||y===ROWS-1)?1:Math.random()<0.18?1:0;
+    }
+  }
+  maze[1][1]=0;maze[1][2]=0;maze[2][1]=0;
+  maze[ROWS-2][COLS-2]=0;maze[ROWS-2][COLS-3]=0;maze[ROWS-3][COLS-2]=0;
+  goal={x:COLS-2,y:ROWS-2};
+  coins=[];
+  const coinCount=5+gameLevel;
+  let attempts=0;
+  while(coins.length<coinCount&&attempts<200){
+    const cx=1+Math.floor(Math.random()*(COLS-2));
+    const cy=1+Math.floor(Math.random()*(ROWS-2));
+    if(maze[cy][cx]===0&&!(cx===1&&cy===1)&&!(cx===goal.x&&cy===goal.y)&&!coins.find(c=>c.x===cx&&c.y===cy)){
+      coins.push({x:cx,y:cy,collected:false});
+    }
+    attempts++;
+  }
+  totalCoinsCount=coins.length;
+  obstacles=[];
+  for(let i=0;i<gameLevel&&i<3;i++){
+    let ox,oy;
+    do{
+      ox=2+Math.floor(Math.random()*(COLS-4));
+      oy=2+Math.floor(Math.random()*(ROWS-4));
+    }while(maze[oy][ox]===1||(ox<4&&oy<4));
+    obstacles.push({x:ox,y:oy,dx:Math.random()<0.5?1:-1,dy:0});
+  }
+  player={x:1,y:1};
+}
+
+function drawMaze(){
+  ctx.fillStyle='#0f3460';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  for(let y=0;y<ROWS;y++){
+    for(let x=0;x<COLS;x++){
+      if(maze[y][x]===1){
+        ctx.fillStyle='#1a1a2e';
+        ctx.fillRect(x*CELL,y*CELL,CELL,CELL);
+        ctx.fillStyle='#16213e';
+        ctx.fillRect(x*CELL+2,y*CELL+2,CELL-4,CELL-4);
+        ctx.fillStyle='#0f3460';
+        ctx.fillRect(x*CELL+6,y*CELL+6,CELL-12,CELL-12);
+      }
+    }
+  }
+  coins.forEach(c=>{
+    if(!c.collected){
+      const cx=c.x*CELL+CELL/2;
+      const cy=c.y*CELL+CELL/2;
+      ctx.fillStyle='rgba(244,184,96,0.3)';
+      ctx.beginPath();ctx.arc(cx,cy,CELL/2-2,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#F4B860';
+      ctx.beginPath();ctx.arc(cx,cy,CELL/3,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#FFD54F';
+      ctx.beginPath();ctx.arc(cx-2,cy-2,CELL/4,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#8B4513';
+      ctx.font='bold 16px Fredoka';
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText('$',cx,cy);
+    }
+  });
+  const gx=goal.x*CELL,gy=goal.y*CELL;
+  ctx.fillStyle='#2D8B5E';
+  ctx.fillRect(gx+5,gy+15,CELL-10,CELL-20);
+  ctx.fillStyle='#1E5B3E';
+  ctx.beginPath();
+  ctx.arc(gx+CELL/2,gy+15,CELL/3,Math.PI,0);
+  ctx.fill();
+  ctx.fillStyle='#F4B860';
+  ctx.fillRect(gx+CELL/2-2,gy+2,4,10);
+  ctx.beginPath();ctx.arc(gx+CELL/2,gy+2,3,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#8B4513';
+  ctx.fillRect(gx+CELL/2-4,gy+CELL-12,8,10);
+  obstacles.forEach(o=>{
+    const ox=o.x*CELL,oy=o.y*CELL;
+    ctx.fillStyle='#E57373';
+    ctx.fillRect(ox+5,oy+5,CELL-10,CELL-10);
+    ctx.fillStyle='#C62828';
+    ctx.fillRect(ox+10,oy+10,CELL-20,CELL-20);
+    ctx.fillStyle='#fff';
+    ctx.fillRect(ox+12,oy+15,4,4);
+    ctx.fillRect(ox+CELL-16,oy+15,4,4);
+    ctx.fillStyle='#000';
+    ctx.fillRect(ox+13,oy+16,2,2);
+    ctx.fillRect(ox+CELL-15,oy+16,2,2);
+  });
+  const px=player.x*CELL,py=player.y*CELL;
+  ctx.fillStyle='#2D8B5E';
+  ctx.fillRect(px+10,py+20,CELL-20,CELL-25);
+  ctx.fillStyle='#FFDBB5';
+  ctx.fillRect(px+12,py+8,CELL-24,15);
+  ctx.fillStyle='#fff';
+  ctx.fillRect(px+10,py+4,CELL-20,6);
+  ctx.fillRect(px+12,py+2,CELL-24,4);
+  ctx.fillStyle='#000';
+  ctx.fillRect(px+15,py+13,3,3);
+  ctx.fillRect(px+CELL-18,py+13,3,3);
+  ctx.fillStyle='#C62828';
+  ctx.fillRect(px+CELL/2-3,py+18,6,2);
+}
+
+function movePlayer(dx,dy){
+  if(!gameRunning)return;
+  const nx=player.x+dx,ny=player.y+dy;
+  if(nx<0||ny<0||nx>=COLS||ny>=ROWS)return;
+  if(maze[ny][nx]===1)return;
+  player.x=nx;player.y=ny;
+  coins.forEach(c=>{
+    if(!c.collected&&c.x===nx&&c.y===ny){
+      c.collected=true;gameCoins++;gameScore+=10;
+      playSound('coin');
+      updateGameUI();
+    }
+  });
+  obstacles.forEach(o=>{
+    if(o.x===nx&&o.y===ny){
+      gameScore=Math.max(0,gameScore-5);
+      playSound('error');
+      player={x:1,y:1};
+      updateGameUI();
+    }
+  });
+  if(nx===goal.x&&ny===goal.y){
+    if(gameCoins===totalCoinsCount){
+      gameScore+=50+Math.max(0,100-gameTime);
+      levelComplete();
+    }
+  }
+  obstacles.forEach(o=>{
+    const nnx=o.x+o.dx,nny=o.y+o.dy;
+    if(nnx>0&&nny>0&&nnx<COLS-1&&nny<ROWS-1&&maze[nny][nnx]===0){
+      o.x=nnx;o.y=nny;
+    }else{
+      o.dx=-o.dx;o.dy=-o.dy;
+    }
+  });
+  drawMaze();
+}
+
+function levelComplete(){
+  gameRunning=false;
+  clearInterval(gameTimer);
+  playSound('win');
+  showModal('🎉','Level Selesai!',`Skor: ${gameScore} | Koin: ${gameCoins} | Waktu: ${gameTime}s`);
+  gameLevel++;
+  setTimeout(()=>{
+    if(confirm(`Hebat! Lanjut ke Level ${gameLevel}?`)){
+      startGame();
+    }
+  },1500);
+}
+
+function startGame(){
+  gameScore=0;gameCoins=0;gameTime=0;
+  gameRunning=true;
+  generateMaze();
+  updateGameUI();
+  drawMaze();
+  clearInterval(gameTimer);
+  gameTimer=setInterval(()=>{
+    if(gameRunning){gameTime++;document.getElementById('gameTime').textContent=gameTime}
+  },1000);
+}
+
+function resetGame(){
+  gameRunning=false;
+  clearInterval(gameTimer);
+  gameLevel=1;
+  startGame();
+}
+
+function updateGameUI(){
+  document.getElementById('gameScore').textContent=gameScore;
+  document.getElementById('gameCoins').textContent=gameCoins;
+  document.getElementById('totalCoins').textContent=totalCoinsCount;
+  document.getElementById('gameLevel').textContent=gameLevel;
+}
+
+document.addEventListener('keydown',e=>{
+  if(!gameRunning)return;
+  if(e.key==='ArrowUp'){e.preventDefault();movePlayer(0,-1)}
+  else if(e.key==='ArrowDown'){e.preventDefault();movePlayer(0,1)}
+  else if(e.key==='ArrowLeft'){e.preventDefault();movePlayer(-1,0)}
+  else if(e.key==='ArrowRight'){e.preventDefault();movePlayer(1,0)}
+});
+
+let touchStartX=0,touchStartY=0;
+canvas.addEventListener('touchstart',e=>{
+  touchStartX=e.touches[0].clientX;
+  touchStartY=e.touches[0].clientY;
+},{passive:true});
+canvas.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-touchStartX;
+  const dy=e.changedTouches[0].clientY-touchStartY;
+  if(Math.abs(dx)>Math.abs(dy)){
+    if(dx>20)movePlayer(1,0);else if(dx<-20)movePlayer(-1,0);
+  }else{
+    if(dy>20)movePlayer(0,1);else if(dy<-20)movePlayer(0,-1);
+  }
+},{passive:true});
+
+// ============ SOUND ============
+let audioCtx=null;
+function playSound(type){
+  try{
+    if(!audioCtx)audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    const osc=audioCtx.createOscillator();
+    const gain=audioCtx.createGain();
+    osc.connect(gain);gain.connect(audioCtx.destination);
+    gain.gain.setValueAtTime(0.1,audioCtx.currentTime);
+    if(type==='success'){osc.frequency.setValueAtTime(600,audioCtx.currentTime);osc.frequency.setValueAtTime(800,audioCtx.currentTime+0.1)}
+    else if(type==='error'){osc.frequency.setValueAtTime(200,audioCtx.currentTime);osc.frequency.setValueAtTime(150,audioCtx.currentTime+0.1)}
+    else if(type==='coin'){osc.frequency.setValueAtTime(1000,audioCtx.currentTime);osc.frequency.setValueAtTime(1500,audioCtx.currentTime+0.05)}
+    else if(type==='win'){osc.frequency.setValueAtTime(500,audioCtx.currentTime);osc.frequency.setValueAtTime(700,audioCtx.currentTime+0.1);osc.frequency.setValueAtTime(900,audioCtx.currentTime+0.2)}
+    gain.gain.exponentialRampToValueAtTime(0.01,audioCtx.currentTime+0.3);
+    osc.start();osc.stop(audioCtx.currentTime+0.3);
+  }catch(e){}
+}
+
+// ============ LATIHAN ============
+const latihanData=[
+  {q:'Zakat yang wajib dikeluarkan pada bulan Ramadan berupa bahan makanan pokok disebut...',options:['Zakat Mal','Zakat Fitrah','Infak','Sedekah'],ans:1},
+  {q:'Berapa banyak zakat fitrah yang harus dikeluarkan?',options:['1 kg beras','2,5 kg atau 3,5 liter beras','5 kg beras','10 kg beras'],ans:1},
+  {q:'Pemberian harta untuk kemaslahatan umum tanpa ketentuan nisab & haul disebut...',options:['Zakat','Infak','Sedekah','Hadiah'],ans:1},
+  {q:'Senyum tulus kepada orang lain termasuk dalam...',options:['Zakat','Infak','Sedekah','Hadiah'],ans:2},
+  {q:'Pemberian untuk memberikan penghargaan & rasa hormat disebut...',options:['Zakat','Infak','Sedekah','Hadiah'],ans:3},
+  {q:'Orang yang baru masuk Islam dan perlu diperkuat imannya disebut mustahik...',options:['Fakir','Miskin','Mualaf','Amil'],ans:2}
+];
+
+function initLatihan(){
+  const c=document.getElementById('latihanContainer');
+  c.innerHTML='';
+  latihanData.forEach((item,i)=>{
+    c.innerHTML+=`
+      <div class="question-card">
+        <div class="question-num">Soal ${i+1}</div>
+        <div class="question-text">${item.q}</div>
+        <div class="options" data-idx="${i}">
+          ${item.options.map((o,j)=>`<button class="option" onclick="selectLatihan(this,${i},${j})">${String.fromCharCode(65+j)}. ${o}</button>`).join('')}
+        </div>
+        <div class="feedback" id="latihanFb${i}"></div>
+      </div>`;
+  });
+  document.getElementById('latihanResult').innerHTML='';
+}
+
+const latihanAnswers={};
+function selectLatihan(btn,qIdx,aIdx){
+  const opts=btn.parentElement.querySelectorAll('.option');
+  opts.forEach(o=>o.classList.remove('selected'));
+  btn.classList.add('selected');
+  latihanAnswers[qIdx]=aIdx;
+}
+
+function checkLatihan(){
+  let correct=0;
+  latihanData.forEach((item,i)=>{
+    const fb=document.getElementById('latihanFb'+i);
+    const opts=document.querySelectorAll(`[data-idx="${i}"] .option`);
+    opts.forEach(o=>o.disabled=true);
+    if(latihanAnswers[i]===item.ans){
+      correct++;
+      opts[item.ans].classList.add('correct');
+      fb.className='feedback correct show';
+      fb.innerHTML='✅ <strong>Benar!</strong> Hebat, jawabanmu tepat!';
+    }else{
+      if(latihanAnswers[i]!==undefined){
+        opts[latihanAnswers[i]].classList.add('wrong');
+      }
+      opts[item.ans].classList.add('correct');
+      fb.className='feedback wrong show';
+      fb.innerHTML=`❌ <strong>Kurang tepat.</strong> Jawaban yang benar: <strong>${item.options[item.ans]}</strong>`;
+    }
+  });
+  const result=document.getElementById('latihanResult');
+  const pct=Math.round(correct/latihanData.length*100);
+  result.innerHTML=`<div class="card" style="background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white">
+    <h3>Skor Latihan: ${correct}/${latihanData.length} (${pct}%)</h3>
+    <p style="margin-top:10px">${pct>=80?'🌟 Luar biasa!':pct>=60?'👍 Bagus! Terus belajar!':'💪 Tetap semangat, ulangi materi ya!'}</p>
+  </div>`;
+}
+function resetLatihan(){Object.keys(latihanAnswers).forEach(k=>delete latihanAnswers[k]);initLatihan()}
+
+// ============ KUIS ============
+const quizData=[
+  {q:'Pemberian seseorang dalam bentuk bahan makanan pokok dengan syarat dan ketentuan dinamakan...',options:['Hadiah','Zakat Fitrah','Infak','Sedekah'],ans:1,explain:'Zakat fitrah adalah zakat jiwa berupa bahan makanan pokok yang wajib dikeluarkan menjelang Idul Fitri.'},
+  {q:'Ketentuan zakat fitrah yang benar adalah...',options:['Menggunakan uang saja','Menggunakan bahan makanan pokok 2,5 kg','Dibayarkan seumur hidup sekali','Dibayarkan saat Idul Adha'],ans:1,explain:'Zakat fitrah wajib menggunakan bahan makanan pokok (beras) sebanyak 2,5 kg atau 3,5 liter.'},
+  {q:'Penerima zakat fitrah yang paling utama adalah...',options:['Amil','Mualaf','Fakir miskin','Sabilillah'],ans:2,explain:'Fakir miskin adalah penerima utama zakat fitrah karena mereka paling membutuhkan di hari bahagia.'},
+  {q:'Yang termasuk makna sedekah adalah...',options:['Memberikan harta dengan syarat tertentu','Memberikan barang berharga untuk penghargaan','Memberikan senyum tulus untuk membahagiakan orang lain','Menyerahkan harta dengan nisab & haul'],ans:2,explain:'Sedekah lebih luas, bahkan senyum tulus kepada orang lain termasuk sedekah.'},
+  {q:'Sedekah menjadi wajib apabila...',options:['Ada orang kelaparan & terancam jiwanya','Ada musafir yang kecapaian','Iuran pembangunan jalan','Punya harta cukup untuk keluarga'],ans:0,explain:'Sedekah wajib ketika ada orang yang sangat membutuhkan hingga terancam jiwanya.'},
+  {q:'Pemberian sukarela yang hanya mengharap ridha Allah adalah makna dari...',options:['Zakat Fitrah','Hadiah','Infak','Zakat Mal'],ans:2,explain:'Infak adalah pemberian sukarela yang sangat dianjurkan dan hanya mengharap ridha Allah.'},
+  {q:'Ahmad memberi barang berharga kepada Amin karena Amin siswa paling rajin & jujur. Ini termasuk...',options:['Zakat Mal','Zakat Fitrah','Sedekah','Hadiah'],ans:3,explain:'Pemberian untuk penghargaan atas prestasi termasuk hadiah.'},
+  {q:'Hikmah sedekah yang sesuai dengan deskripsi "menolong orang yang lemah sehingga mereka kuat" adalah...',options:['Menambah pahala','Menolak bencana','Menolong orang yang lemah','Menghapus penyakit kikir'],ans:2,explain:'Sedekah & infak menolong orang yang lemah sehingga mereka menjadi kuat & termotivasi.'},
+  {q:'Yang termasuk hadiah adalah...',options:['Memberikan kado ulang tahun & mendapat tropi juara','Sumbangan sembako & iuran amal','Membayar zakat & berinfak','Membantu korban banjir'],ans:0,explain:'Kado ulang tahun & tropi juara termasuk hadiah karena untuk penghargaan.'},
+  {q:'Sikap tepat saat ada musibah korban banjir adalah...',options:['Mengabarkan ke teman','Mengumpulkan bantuan di sekolah & lapor guru','Menonton TV saja','Membiarkan pemerintah'],ans:1,explain:'Sikap terbaik adalah segera mengumpulkan bantuan & melapor ke guru untuk disalurkan.'}
+];
+
+const quizAnswers={};
+function initQuiz(){
+  const c=document.getElementById('quizContainer');
+  c.innerHTML='';
+  quizData.forEach((item,i)=>{
+    c.innerHTML+=`
+      <div class="question-card">
+        <div class="question-num">Soal ${i+1}/${quizData.length}</div>
+        <div class="question-text">${item.q}</div>
+        <div class="options" data-quiz="${i}">
+          ${item.options.map((o,j)=>`<button class="option" onclick="selectQuiz(this,${i},${j})">${String.fromCharCode(65+j)}. ${o}</button>`).join('')}
+        </div>
+        <div class="feedback" id="quizFb${i}"></div>
+      </div>`;
+  });
+  document.getElementById('quizResult').innerHTML='';
+  updateQuizProgress();
+}
+
+function selectQuiz(btn,qIdx,aIdx){
+  const opts=btn.parentElement.querySelectorAll('.option');
+  opts.forEach(o=>o.classList.remove('selected'));
+  btn.classList.add('selected');
+  quizAnswers[qIdx]=aIdx;
+  updateQuizProgress();
+}
+
+function updateQuizProgress(){
+  const answered=Object.keys(quizAnswers).length;
+  const pct=Math.round(answered/quizData.length*100);
+  const bar=document.getElementById('quizProgress');
+  bar.style.width=pct+'%';
+  bar.textContent=pct+'%';
+}
+
+function submitQuiz(){
+  let correct=0;
+  quizData.forEach((item,i)=>{
+    const fb=document.getElementById('quizFb'+i);
+    const opts=document.querySelectorAll(`[data-quiz="${i}"] .option`);
+    opts.forEach(o=>o.disabled=true);
+    if(quizAnswers[i]===item.ans){
+      correct++;
+      opts[item.ans].classList.add('correct');
+      fb.className='feedback correct show';
+      fb.innerHTML=`✅ <strong>Benar!</strong> ${item.explain}`;
+    }else{
+      if(quizAnswers[i]!==undefined)opts[quizAnswers[i]].classList.add('wrong');
+      opts[item.ans].classList.add('correct');
+      fb.className='feedback wrong show';
+      fb.innerHTML=`❌ <strong>Kurang tepat.</strong> ${item.explain}`;
+    }
+  });
+  const pct=Math.round(correct/quizData.length*100);
+  document.getElementById('finalScore').textContent=pct;
+  document.getElementById('statCorrect').textContent=correct;
+  document.getElementById('statWrong').textContent=quizData.length-correct;
+  document.getElementById('statTotal').textContent=quizData.length;
+  let badge='💪 Tetap Semangat!';
+  if(pct>=90)badge='🏆 Luar Biasa!';
+  else if(pct>=75)badge='🌟 Hebat!';
+  else if(pct>=60)badge='👍 Bagus!';
+  document.getElementById('finalBadge').textContent=badge;
+  let rec='';
+  if(pct<60)rec='Skormu masih di bawah 60%. Yuk ulangi materi dan coba lagi! Fokus pada bagian yang masih sulit.';
+  else if(pct<75)rec='Bagus! Tapi masih ada beberapa materi yang perlu diulang. Coba baca kembali bagian yang salah.';
+  else if(pct<90)rec='Hebat! Pemahamanmu sudah baik. Pertahankan dan terus berbagi dalam kehidupan sehari-hari!';
+  else rec='🎉 Sempurna! Kamu luar biasa! Terus amalkan ilmu berbagi dalam kehidupan sehari-hari!';
+  document.getElementById('recommendationText').textContent=rec;
+  try{
+    localStorage.setItem('quizScore',pct);
+    localStorage.setItem('quizCorrect',correct);
+  }catch(e){}
+  const result=document.getElementById('quizResult');
+  result.innerHTML=`<div class="card" style="background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white">
+    <h3>🎯 Skor Kuis: ${correct}/${quizData.length} (${pct}%)</h3>
+    <p style="margin-top:10px">${badge}</p>
+    <button class="btn btn-secondary" style="margin-top:15px" onclick="showPage('hasil')">🏆 Lihat Hasil Lengkap</button>
+  </div>`;
+  window.scrollTo({top:result.offsetTop-100,behavior:'smooth'});
+}
+
+function resetQuiz(){
+  Object.keys(quizAnswers).forEach(k=>delete quizAnswers[k]);
+  initQuiz();
+}
+
+// ============ REFLEKSI ============
+const reflectionData={};
+function selectEmoji(btn,group){
+  btn.parentElement.querySelectorAll('.emoji-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  reflectionData[group]=btn.dataset.value;
+}
+function selectStar(btn,val,group){
+  const parent=btn.parentElement;
+  parent.querySelectorAll('.star-btn').forEach((b,i)=>{
+    if(i<val)b.classList.add('active');else b.classList.remove('active');
+  });
+  reflectionData[group]=val;
+}
+function submitReflection(){
+  reflectionData.like=document.getElementById('reflectionLike').value;
+  reflectionData.hard=document.getElementById('reflectionHard').value;
+  reflectionData.action=document.getElementById('reflectionAction').value;
+  try{localStorage.setItem('reflection',JSON.stringify(reflectionData))}catch(e){}
+  const result=document.getElementById('reflectionResult');
+  result.innerHTML=`<div class="card" style="background:linear-gradient(135deg,var(--secondary),var(--accent-light));color:white;text-align:center">
+    <h3 style="font-size:48px;margin-bottom:10px">💝</h3>
+    <h3>Terima Kasih!</h3>
+    <p style="margin-top:10px">Refleksimu sudah disimpan. Teruslah berbagi dan menjadi anak yang bermanfaat!</p>
+  </div>`;
+  showModal('💖','Refleksi Tersimpan!','Terima kasih sudah merefleksikan pembelajaranmu!');
+}
+
+// ============ INIT ============
+window.addEventListener('load',()=>{
+  // Tombol MULAI
+  const btnMulai = document.getElementById('btnMulai');
+  if(btnMulai){
+    btnMulai.addEventListener('click', startApp);
+  }
+  
+  // Navigation buttons
+  document.querySelectorAll('[data-page]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const page = el.dataset.page;
+      if(page) showPage(page);
+    });
+  });
+  
+  // Materi tabs
+  document.querySelectorAll('[data-materi]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      showMateri(btn.dataset.materi, btn);
+    });
+  });
+  
+  // Emoji & Star reflection
+  document.querySelectorAll('.emoji-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const group = btn.parentElement.dataset.reflection;
+      selectEmoji(btn, group);
+    });
+  });
+  document.querySelectorAll('.star-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const group = btn.parentElement.dataset.reflection;
+      const val = parseInt(btn.dataset.val);
+      selectStar(btn, val, group);
+    });
+  });
+  
+  initMatching();
+  initDragDrop();
+  initTebak();
+  initLatihan();
+  initQuiz();
+  resizeCanvas();
+  window.addEventListener('resize',()=>{resizeCanvas();if(gameRunning)drawMaze()});
+});
+</script>
+</body>
+</html>
